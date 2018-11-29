@@ -16,7 +16,6 @@ recipients = {"Andy"   : "Andy.Morris@warwick.ac.uk",
               "Mousam" : "Mousam.Rai@warwick.ac.uk",
               "Bryn"   : "Bryn.Roberts@warwick.ac.uk",
               "Eleanor": "Eleanor.Jones.1@warwick.ac.uk"}
-recipients_len = len(recipients)
 
 #Making sure no-one gets 2 presents
 usedNames = []
@@ -33,7 +32,9 @@ for key in recipients.keys():
     sendTo = recipients[key]
     while(True):
         recipientName = choice(recipients.keys())
-        if (recipients[recipientName] != sendTo) and (not (recipientName in usedNames)):
+        recipientEmail= recipients[recipientName]
+
+        if (recipientEmail != sendTo) and (not (recipientName in usedNames)):
             usedNames += [recipientName]
             break
 
@@ -41,12 +42,12 @@ for key in recipients.keys():
     msg = MIMEMultipart()
     msg['Subject'] = "Secret Santa"
     
-    body = "Your secret santa is for: " + recipientName
+    body = "Your secret santa is for: " + recipientName    
 
     msg.attach(MIMEText(body,'plain'))
     text = msg.as_string()
 
-    server.sendmail(email, recipients[sendTo], text)
+    server.sendmail(email, sendTo, text)
     del msg
 
 server.quit()
