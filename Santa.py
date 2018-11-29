@@ -29,8 +29,8 @@ server.ehlo()
 server.login(username,pword)
 
 #Working out who's sending to whom
-for i in range(recipients_len):
-    sendTo = recipients[recipients.keys()[i]]
+for key in recipients.keys():
+    sendTo = recipients[key]
     while(True):
         recipientName = choice(recipients.keys())
         if (recipients[recipientName] != sendTo) and (not (recipientName in usedNames)):
@@ -46,7 +46,7 @@ for i in range(recipients_len):
     msg.attach(MIMEText(body,'plain'))
     text = msg.as_string()
 
-    server.sendmail(email, recipients[sender], text)
+    server.sendmail(email, recipients[sendTo], text)
     del msg
 
 server.quit()
