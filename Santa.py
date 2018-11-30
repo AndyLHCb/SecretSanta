@@ -37,7 +37,11 @@ for key in recipients.keys():
         if (recipientEmail != sendTo) and (not (recipientName in usedNames)):
             usedNames += [recipientName]
             break
-
+        if (key == 'Bryn' and not("Eleanor" in usedNames)):
+            recipientName = "Eleanor"
+            usedNames += [recipientName
+            break]
+        
     #Message to be sent
     msg = MIMEMultipart()
     msg['Subject'] = "Secret Santa"
