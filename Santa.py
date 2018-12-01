@@ -23,7 +23,7 @@ assert(namesL > 1)
 #Shuffling Names
 test = True
 while(test):
-    sfflNames = sample(recipients.keys(),namesL)
+    sfflNames = sample(names,namesL)
     test = any([sfflNames[i] == names[i] for i in range(namesL)])
 
 #Logging onto the email client
@@ -48,8 +48,8 @@ for i in range(namesL):
     msg.attach(MIMEText(body,'plain'))
     text = msg.as_string()
 
-    print("sending from: " + sendTo + " to " + recipientName)
-    #server.sendmail(email, sendTo, text)
+    #print("sending from: " + sendTo + " to " + recipientName)
+    server.sendmail(email, sendTo, text)
     del msg
 
 server.quit()
