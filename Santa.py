@@ -18,15 +18,13 @@ recipients = {"Andy"   : "Andy.Morris@warwick.ac.uk",
               "Eleanor": "Eleanor.Jones.1@warwick.ac.uk"}
 names = recipients.keys()
 namesL= len(names)
+assert(namesL > 1)
 
-test = False
-while(not test):
+#Shuffling Names
+test = True
+while(test):
     sfflNames = sample(recipients.keys(),namesL)
-    test = not any([sfflNames[i] == names[i] for i in range(namesL)])
-
-
-#Making sure no-one gets 2 presents
-usedNames = []
+    test = any([sfflNames[i] == names[i] for i in range(namesL)])
 
 #Logging onto the email client
 server = smtplib.SMTP("smtp." + domain,587)
@@ -37,22 +35,21 @@ server.login(username,pword)
 
 #Working out who's sending to whom
 for i in range(namesL):
-    sendTo = recipients[names[i]]
+    sendTo = recipients[names[i]] #Person receiving the email
 
-    recipientName = sfflNames[i]
-    recipientEmail= recipients[recipientName]
+    recipientName = sfflNames[i]  #Person receiving the gift
        
     #Message to be sent
     msg = MIMEMultipart()
     msg['Subject'] = "Secret Santa"
     
-    body = "Your secret santa is for: " + recipientName    
+    body = "\nYour secret santa is for: " + recipientName    
 
     msg.attach(MIMEText(body,'plain'))
     text = msg.as_string()
 
-    #print("sending from: " + sendTo + " to " + recipientName)
-    server.sendmail(email, sendTo, text)
+    print("sending from: " + sendTo + " to " + recipientName)
+    #server.sendmail(email, sendTo, text)
     del msg
 
 server.quit()
