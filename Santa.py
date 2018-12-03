@@ -43,7 +43,7 @@ for i in range(namesL):
     msg = MIMEMultipart()
     msg['Subject'] = "Secret Santa"
     
-    body = "\nYour secret santa is for: " + recipientName    
+    body = ("\nYour secret Santa is for: " + recipientName + ".\n The spending limit is 5 pounds.")
 
     msg.attach(MIMEText(body,'plain'))
     text = msg.as_string()
