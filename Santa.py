@@ -41,7 +41,7 @@ for i in range(namesL):
        
     #Message to be sent
     msg = MIMEMultipart()
-    msg['Subject'] = "R.E. Secret Santa"
+    msg['Subject'] = "Secret Santa"
     
     body = ("\nYour secret Santa is for: " + recipientName + ".\nThe spending limit is 5CHF.")
 
