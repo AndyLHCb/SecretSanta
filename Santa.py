@@ -1,7 +1,7 @@
 import smtplib
 from getpass import getpass
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from random import sample
 
 #setting up the sending email address
@@ -13,10 +13,10 @@ pword = getpass() #Password for the Warwick.secretsanta@gmail.com account
 recipients = {"Andy"   : "Andy.Morris@warwick.ac.uk",
               "Ross"   : "Ross.Hunter@warwick.ac.uk",
               "Flavia" : "Flavia.Cicala@warwick.ac.uk",
-              "Mousam" : "Mousam.Rai@warwick.ac.uk",
+              "Katy"   : "KatyIkin@gmail.com",
               "Bryn"   : "Bryn.Roberts@warwick.ac.uk",
               "Eleanor": "Eleanor.Jones.1@warwick.ac.uk"}
-names = recipients.keys()
+names = [*recipients]
 namesL= len(names)
 assert(namesL > 1)
 
@@ -27,9 +27,9 @@ while(test):
     test = any([sfflNames[i] == names[i] for i in range(namesL)])
 
 #Logging onto the email client
-server = smtplib.SMTP("smtp." + domain,587)
+server = smtplib.SMTP_SSL("smtp." + domain,465)
 server.ehlo()
-server.starttls()
+#server.starttls()
 server.ehlo()
 server.login(username,pword)
 
@@ -41,9 +41,9 @@ for i in range(namesL):
        
     #Message to be sent
     msg = MIMEMultipart()
-    msg['Subject'] = "Secret Santa"
+    msg['Subject'] = "R.E. Secret Santa"
     
-    body = ("\nYour secret Santa is for: " + recipientName + ".\n The spending limit is 5 pounds.")
+    body = ("\nYour secret Santa is for: " + recipientName + ".\nThe spending limit is 5CHF.")
 
     msg.attach(MIMEText(body,'plain'))
     text = msg.as_string()
